@@ -5,32 +5,32 @@ By Shaomin (Samuel) Zhang, Mar 2015
 This is a programming project in my Distributed Systems course. The purpose of this project is to better understand the algorithms for Distributed Mutual Exclusion. Lamport’s algorithm for mutual exclusion is chosen for my program. This program consists of two parts. The “Car” runs at backend and its modules include several socket message channels, Lamport’s logical clock, Lamport’s Mutual Exclusion algorithm and its modified version for the second part of this question, and car’s basic functionality movement. The other part is a GUI application based on a 3rdparty GUI system called FTK, which is an open source cross-platform GUI tool that I was once familiar. These two parts of programs are actually independent but highly integrated together and can run on Ubuntu Linux distribution. 
 
 ## Problem
- 
+![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/question.png)
+
 ## Design
 ### Lamport’s Algorithm for Mutual Exclusion
-
-Ghosh, Sukumar (2014-07-14). Distributed Systems: An Algorithmic Approach, Second Edition (Chapman & Hall/CRC Computer and Information Science Series) (Page 130-131). Chapman and Hall/CRC. Kindle Edition.
-7.2.1 Lamport’s Solution
-	The first published solution to this problem is due to Lamport. It works on a completely connected network and assumes that interprocess communication channels are FIFO.
-	Each process maintains its own private request-queue Q. The algorithm is described by the following five rules:
-LA1: To request entry into its CS, a process sends a time-stamped request to every other process in the system and also enters the request in its local Q.
-LA2: When a process receives a request, it places it in its Q. If the process is not in its CS, then it sends a time-stamped ack to the sender. Otherwise, it defers the sending of the ack until its exit from the CS.
-LA3: A process enters its CS, when (1) its request is ordered ahead of all other requests (i.e., the time stamp of its own request is less than the time stamps of all other requests) 
-in its local Q and (2) it has received the acks from every other process in response to its current request.
-LA4: To exit from the CS, a process (1) deletes the request from its local queue and (2) sends a time-stamped release message to all the other processes.
-LA5: When a process receives a release message, it removes the corresponding request from its local queue.
-
+<br>
+Ghosh, Sukumar (2014-07-14). Distributed Systems: An Algorithmic Approach, Second Edition (Chapman & Hall/CRC Computer and Information Science Series) (Page 130-131). Chapman and Hall/CRC. Kindle Edition.<br>
+7.2.1 Lamport’s Solution<br>
+	The first published solution to this problem is due to Lamport. It works on a completely connected network and assumes that interprocess communication channels are FIFO.<br>
+	Each process maintains its own private request-queue Q. The algorithm is described by the following five rules:<br>
+	LA1: To request entry into its CS, a process sends a time-stamped request to every other process in the system and also enters the request in its local Q.<br>
+	LA2: When a process receives a request, it places it in its Q. If the process is not in its CS, then it sends a time-stamped ack to the sender. Otherwise, it defers the sending of the ack until its exit from the CS.<br>
+	LA3: A process enters its CS, when (1) its request is ordered ahead of all other requests (i.e., the time stamp of its own request is less than the time stamps of all other requests) in its local Q and (2) it has received the acks from every other process in response to its current request.<br>
+	LA4: To exit from the CS, a process (1) deletes the request from its local queue and (2) sends a time-stamped release message to all the other processes.<br>
+	LA5: When a process receives a release message, it removes the corresponding request from its local queue.<br>
+<br>
 
 ### Design: Essential Factors for the Car
 
-1. A car owns these properties: 
-a. Lamport Logical Clock, which is to generate and maintain stable timestamps.
-b. State Machine with 3 states:  Out-of-CS, Waiting-for-Entering-CS and In-CS.
-c. Network connections with every other car, which is able to both receive and send messages based on TCP. The message at least contains 3 parameters: sender’s ID, message (Request, Ack or Release), timestamp.
-d. At least 3 queue-like buffers to maintain: requests from others, acks feedback from others for my own request and the requests that I received in CS and should be acked after I leave CS.
-2. A car has other properties not related with critical section issue:
-a. Basic items from the requirements, like color, number, ID, (x, y)-coordinates, a timer-driven movement within a given map.
-b. Heartbeat report to a GUI observer, an independent GUI process who is only responsible for showing but not work as an coordinator or any kind of message mediator, so that the whole scenario can be seen by us. 
+1. A car owns these properties: <br>
+	a. Lamport Logical Clock, which is to generate and maintain stable timestamps. <br>
+	b. State Machine with 3 states:  Out-of-CS, Waiting-for-Entering-CS and In-CS. <br>
+	c. Network connections with every other car, which is able to both receive and send messages based on TCP. The message at least contains 3 parameters: sender’s ID, message (Request, Ack or Release), timestamp. <br>
+	d. At least 3 queue-like buffers to maintain: requests from others, acks feedback from others for my own request and the requests that I received in CS and should be acked after I leave CS. <br>
+2. A car has other properties not related with critical section issue: <br>
+	a. Basic items from the requirements, like color, number, ID, (x, y)-coordinates, a timer-driven movement within a given map. <br>
+	b. Heartbeat report to a GUI observer, an independent GUI process who is only responsible for showing but not work as an coordinator or any kind of message mediator, so that the whole scenario can be seen by us. <br>
 
 
 
@@ -45,17 +45,19 @@ b. Heartbeat report to a GUI observer, an independent GUI process who is only re
 ### Supplementary Design for Part (B)
 
 Slightly we need to change the answer to such a question: “should the car in CS give an ACK to other requests?” For the previous version, the answer of course is absolutely No (Fig-A).  For part-B of this question, now we just change it to “If the car who sends request is moving in the same direction with me, I, the car in CS, will give it an ACK”, anything else keeps the same (Fig-B).
-  
-Fig-A At most one car is on the bridge
 
- 
-Fig-B Multiple cars can be on the bridge as long as they move in the same direction
+![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/partA.png)  
+<br>Fig-A At most one car is on the bridge
+
+![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/partB.png) 
+<br>Fig-B Multiple cars can be on the bridge as long as they move in the same direction
 
 ## How to compile and run this program
-[1] How to compile and execute? Download this project to your Ubuntu machine, 'cd' into this directory and sh ./build.sh If everything is normal, you should see a GUI window appears. 
-[2] What to do next? Press button 'Start(A)' and see the cars run in circles and try to cross the bridge occasionally and press button 'Stop'. Then try another button 'Start(B)' to see part (b) for another situation.
-Snapshot
- 
+* Download this project to your Linux machine (You'd better use Ubuntu), 'cd' into this directory and sh ./build.sh If everything is normal, you should see a GUI window appears. 
+* What to do next? Press button 'Start(A)' and see the cars run in circles and try to cross the bridge occasionally and press button 'Stop'. Then try another button 'Start(B)' to see part (b) for another situation.
+
+## Snapshot
+![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/snapshot.jpg)
 
 
 ## More explanations about the source code
