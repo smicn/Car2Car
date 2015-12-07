@@ -26,7 +26,7 @@ Ghosh, Sukumar (2014-07-14). Distributed Systems: An Algorithmic Approach, Secon
 1. A car owns these properties: <br>
 	a. Lamport Logical Clock, which is to generate and maintain stable timestamps. <br>
 	b. State Machine with 3 states:  Out-of-CS, Waiting-for-Entering-CS and In-CS. <br>
-	c. Network connections with every other car, which is able to both receive and send messages based on TCP. The message at least contains 3 parameters: sender’s ID, message (Request, Ack or Release), timestamp. <br>
+	c. Network connections with every other car, which is able to both receive and send messages based on UDP sockets. The message at least contains 3 parameters: sender’s ID, message (Request, Ack or Release), timestamp. <br>
 	d. At least 3 queue-like buffers to maintain: requests from others, acks feedback from others for my own request and the requests that I received in CS and should be acked after I leave CS. <br>
 2. A car has other properties not related with critical section issue: <br>
 	a. Basic items from the requirements, like color, number, ID, (x, y)-coordinates, a timer-driven movement within a given map. <br>
@@ -64,6 +64,6 @@ Fig-A At most one car is on the bridge
 The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.<br><br>
 Some extra code is for debugging and testing. They are also submitted because they are meaningful to show the independency of the car program and its GUI application. Another application called ‘simulator’ is actually using 4 threads and one mutex to perfectly represent the same scenario of part (a), one car is allowed to cross the bridge, which can be used to compare with the distributed version. Another ‘test’ application is to run the cars without GUI but only command line prints, which was used for debugging and now is a key proof for the independency of car program. <br><br>
 FTK is a 3rdparty GUI system. For it is cross-platform and on Linux it is based on X-window and you can see my ‘-lX11’ in the Makefile under gui subdirectory. Even I was familiar with this GUI system, it still cost me much time to port it on my work station and develop my own car GUI application based on it. Oh, if you see some displaying flaws on GUI widgets, they are the problems embedded in the GUI itself. <br><br>
-Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from Europe: www.car-2-car.org <br><br>
+Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from the European Union: www.car-2-car.org <br><br>
 This program can only be executed on Ubuntu rather than other Linux machines, unfortunately. Mostly it is because the dependencies of the GUI system are slightly but terribly different on Linux distributions. It now has to run on Ubuntu is because my work station happens to be Ubuntu 12.04 64-bit LTS. The dependencies have to be checked and the Makefile should be slightly modified if you try to run on CentOS and other machines.<br>
 
