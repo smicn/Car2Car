@@ -47,7 +47,7 @@ Ghosh, Sukumar (2014-07-14). Distributed Systems: An Algorithmic Approach, Secon
 Slightly we need to change the answer to such a question: “should the car in CS give an ACK to other requests?” For the previous version, the answer of course is absolutely No (Fig-A).  For part-B of this question, now we just change it to “If the car who sends request is moving in the same direction with me, I, the car in CS, will give it an ACK”, anything else keeps the same (Fig-B).
 
 ![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/partA.png)  
-<br>Fig-A At most one car is on the bridge
+Fig-A At most one car is on the bridge
 
 ![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/partB.png) 
 <br>Fig-B Multiple cars can be on the bridge as long as they move in the same direction
@@ -61,10 +61,9 @@ Slightly we need to change the answer to such a question: “should the car in C
 
 
 ## More explanations about the source code
-The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.
-Some extra code is for debugging and testing. They are also submitted because they are meaningful to show the independency of the car program and its GUI application. Another application called ‘simulator’ is actually using 4 threads and one mutex to perfectly represent the same scenario of part (a), one car is allowed to cross the bridge, which can be used to compare with the distributed version. Another ‘test’ application is to run the cars without GUI but only command line prints, which was used for debugging and now is a key proof for the independency of car program.
-
-FTK is a 3rdparty GUI system. For it is cross-platform and on Linux it is based on X-window and you can see my ‘-lX11’ in the Makefile under gui subdirectory. Even I was familiar with this GUI system, it still cost me much time to port it on my work station and develop my own car GUI application based on it. Oh, if you see some displaying flaws on GUI widgets, they are the problems embedded in the GUI itself.
-Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from Europe: www.car-2-car.org
-This program can only be executed on Ubuntu rather than other Linux machines, unfortunately. Mostly it is because the dependencies of the GUI system are slightly but terribly different on Linux distributions. It now has to run on Ubuntu is because my work station happens to be Ubuntu 12.04 64-bit LTS. The dependencies have to be checked and the Makefile should be slightly modified if you try to run on CentOS and other machines.
+The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.<br>
+Some extra code is for debugging and testing. They are also submitted because they are meaningful to show the independency of the car program and its GUI application. Another application called ‘simulator’ is actually using 4 threads and one mutex to perfectly represent the same scenario of part (a), one car is allowed to cross the bridge, which can be used to compare with the distributed version. Another ‘test’ application is to run the cars without GUI but only command line prints, which was used for debugging and now is a key proof for the independency of car program. <br>
+FTK is a 3rdparty GUI system. For it is cross-platform and on Linux it is based on X-window and you can see my ‘-lX11’ in the Makefile under gui subdirectory. Even I was familiar with this GUI system, it still cost me much time to port it on my work station and develop my own car GUI application based on it. Oh, if you see some displaying flaws on GUI widgets, they are the problems embedded in the GUI itself. <br>
+Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from Europe: www.car-2-car.org <br>
+This program can only be executed on Ubuntu rather than other Linux machines, unfortunately. Mostly it is because the dependencies of the GUI system are slightly but terribly different on Linux distributions. It now has to run on Ubuntu is because my work station happens to be Ubuntu 12.04 64-bit LTS. The dependencies have to be checked and the Makefile should be slightly modified if you try to run on CentOS and other machines.<br>
 
