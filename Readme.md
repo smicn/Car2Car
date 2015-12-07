@@ -14,11 +14,11 @@ Ghosh, Sukumar (2014-07-14). Distributed Systems: An Algorithmic Approach, Secon
 7.2.1 Lamport’s Solution<br>
 	The first published solution to this problem is due to Lamport. It works on a completely connected network and assumes that interprocess communication channels are FIFO.<br>
 	Each process maintains its own private request-queue Q. The algorithm is described by the following five rules:<br>
-	LA1: To request entry into its CS, a process sends a time-stamped request to every other process in the system and also enters the request in its local Q.<br>
-	LA2: When a process receives a request, it places it in its Q. If the process is not in its CS, then it sends a time-stamped ack to the sender. Otherwise, it defers the sending of the ack until its exit from the CS.<br>
-	LA3: A process enters its CS, when (1) its request is ordered ahead of all other requests (i.e., the time stamp of its own request is less than the time stamps of all other requests) in its local Q and (2) it has received the acks from every other process in response to its current request.<br>
-	LA4: To exit from the CS, a process (1) deletes the request from its local queue and (2) sends a time-stamped release message to all the other processes.<br>
-	LA5: When a process receives a release message, it removes the corresponding request from its local queue.<br>
+*	LA1: To request entry into its CS, a process sends a time-stamped request to every other process in the system and also enters the request in its local Q.<br>
+*	LA2: When a process receives a request, it places it in its Q. If the process is not in its CS, then it sends a time-stamped ack to the sender. Otherwise, it defers the sending of the ack until its exit from the CS.<br>
+*	LA3: A process enters its CS, when (1) its request is ordered ahead of all other requests (i.e., the time stamp of its own request is less than the time stamps of all other requests) in its local Q and (2) it has received the acks from every other process in response to its current request.<br>
+*	LA4: To exit from the CS, a process (1) deletes the request from its local queue and (2) sends a time-stamped release message to all the other processes.<br>
+*	LA5: When a process receives a release message, it removes the corresponding request from its local queue.<br>
 <br>
 
 ### Design: Essential Factors for the Car
@@ -61,9 +61,9 @@ Fig-A At most one car is on the bridge
 
 
 ## More explanations about the source code
-The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.<br>
-Some extra code is for debugging and testing. They are also submitted because they are meaningful to show the independency of the car program and its GUI application. Another application called ‘simulator’ is actually using 4 threads and one mutex to perfectly represent the same scenario of part (a), one car is allowed to cross the bridge, which can be used to compare with the distributed version. Another ‘test’ application is to run the cars without GUI but only command line prints, which was used for debugging and now is a key proof for the independency of car program. <br>
-FTK is a 3rdparty GUI system. For it is cross-platform and on Linux it is based on X-window and you can see my ‘-lX11’ in the Makefile under gui subdirectory. Even I was familiar with this GUI system, it still cost me much time to port it on my work station and develop my own car GUI application based on it. Oh, if you see some displaying flaws on GUI widgets, they are the problems embedded in the GUI itself. <br>
-Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from Europe: www.car-2-car.org <br>
+The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.<br><br>
+Some extra code is for debugging and testing. They are also submitted because they are meaningful to show the independency of the car program and its GUI application. Another application called ‘simulator’ is actually using 4 threads and one mutex to perfectly represent the same scenario of part (a), one car is allowed to cross the bridge, which can be used to compare with the distributed version. Another ‘test’ application is to run the cars without GUI but only command line prints, which was used for debugging and now is a key proof for the independency of car program. <br><br>
+FTK is a 3rdparty GUI system. For it is cross-platform and on Linux it is based on X-window and you can see my ‘-lX11’ in the Makefile under gui subdirectory. Even I was familiar with this GUI system, it still cost me much time to port it on my work station and develop my own car GUI application based on it. Oh, if you see some displaying flaws on GUI widgets, they are the problems embedded in the GUI itself. <br><br>
+Why displaying ‘Welcome to Lamar Car2Car’ on the title of GUI application? It is for fun and a sincere greeting to the real Car2Car research program from Europe: www.car-2-car.org <br><br>
 This program can only be executed on Ubuntu rather than other Linux machines, unfortunately. Mostly it is because the dependencies of the GUI system are slightly but terribly different on Linux distributions. It now has to run on Ubuntu is because my work station happens to be Ubuntu 12.04 64-bit LTS. The dependencies have to be checked and the Makefile should be slightly modified if you try to run on CentOS and other machines.<br>
 
