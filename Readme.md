@@ -58,7 +58,10 @@ Fig-A At most one car is on the bridge
 
 ## Snapshot
 ![](https://raw.githubusercontent.com/smicn/Car2Car/master/docs/snapshot.jpg)
-
+<brbr>
+and yes, this is an animation and the cars can move:
+![](https://github.com/smicn/Car2Car/blob/master/docs/ezgif.com-optimize.gif)
+<br>
 
 ## More explanations about the source code
 The source code for the ‘Car’ is under the sub-directory ‘car’ and source code for user interface is under the sub-directory ‘gui’. These two parts of programs are totally independent. The GUI application receives heartbeat report messages from cars and displays the information on screen.<br><br>
